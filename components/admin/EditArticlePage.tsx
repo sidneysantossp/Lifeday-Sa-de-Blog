@@ -38,6 +38,7 @@ const EditArticlePage: React.FC<EditArticlePageProps> = ({ articleId, onNavigate
     readTime: '5 min',
     seoTitle: '',
     seoDescription: '',
+    seoKeyword: '',
     faq: [],
     references: [],
     tags: []
@@ -94,6 +95,7 @@ const EditArticlePage: React.FC<EditArticlePageProps> = ({ articleId, onNavigate
           faq: formData.faq || [],
           seoTitle: formData.seoTitle || formData.title,
           seoDescription: formData.seoDescription || formData.description,
+          seoKeyword: formData.seoKeyword || '',
           authorAvatar: (formData as any).authorAvatar || `https://ui-avatars.com/api/?name=${formData.author || 'Admin'}&background=random`
       };
 
@@ -181,7 +183,7 @@ const EditArticlePage: React.FC<EditArticlePageProps> = ({ articleId, onNavigate
     }
   };
 
-  // Google Gemini Image Generation
+  // Google Gemini Image Generation (Nano Banana)
   const handleGenerateAIImage = async () => {
     if (!process.env.API_KEY) {
         alert("Erro: API_KEY não encontrada. Verifique suas variáveis de ambiente.");
@@ -499,6 +501,18 @@ ${generateFillerParagraphs(3)}
 
              <div className="space-y-4 relative z-10">
                 <div>
+                   <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Palavra-chave Foco</label>
+                   <input 
+                     type="text" 
+                     name="seoKeyword"
+                     value={formData.seoKeyword || ''}
+                     onChange={handleChange}
+                     className="w-full px-3 py-2 rounded-lg border border-stone-300 focus:ring-emerald-500 outline-none text-sm bg-white text-stone-900 placeholder-stone-400"
+                     placeholder="Ex: Jejum Intermitente"
+                   />
+                </div>
+
+                <div>
                    <div className="flex justify-between mb-1">
                       <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider">Meta Title (45-65 chars)</label>
                       <span className={`text-xs ${(formData.seoTitle?.length || 0) > 65 ? 'text-red-500' : 'text-stone-400'}`}>
@@ -583,12 +597,15 @@ ${generateFillerParagraphs(3)}
                     {/* Rendered exactly like the ArticlePage frontend */}
                     <div 
                       className="prose prose-stone prose-base md:prose-lg max-w-none 
-                      prose-headings:font-serif prose-headings:text-stone-900 
-                      prose-p:text-stone-600 prose-p:leading-relaxed 
+                      prose-headings:font-serif prose-headings:font-bold
+                      prose-h1:text-4xl prose-h1:text-stone-900
+                      prose-h2:text-3xl prose-h2:text-emerald-900 prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-2 prose-h2:border-b prose-h2:border-stone-100
+                      prose-h3:text-2xl prose-h3:text-stone-800 prose-h3:mt-10 prose-h3:mb-4
+                      prose-p:text-stone-600 prose-p:leading-relaxed md:prose-p:leading-loose
                       prose-a:text-emerald-700 prose-a:font-medium hover:prose-a:text-emerald-800
-                      prose-blockquote:border-l-emerald-500 prose-blockquote:bg-white prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:italic
+                      prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-stone-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:italic prose-blockquote:rounded-r-lg
                       prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-8
-                      prose-th:bg-stone-100 prose-th:p-4 prose-td:p-4 prose-table:border prose-table:border-stone-200 prose-table:rounded-lg prose-table:overflow-hidden"
+                      prose-th:bg-emerald-50 prose-th:text-emerald-900 prose-th:p-4 prose-td:p-4 prose-table:border prose-table:border-stone-200 prose-table:rounded-lg prose-table:overflow-hidden"
                       dangerouslySetInnerHTML={{ __html: formData.content || '<p class="text-stone-400 italic">Nada para visualizar ainda.</p>' }} 
                     />
                  </div>
@@ -797,13 +814,15 @@ ${generateFillerParagraphs(3)}
                     onClick={handleGenerateAIImage} 
                     disabled={isGeneratingImage} 
                     className={`bg-emerald-50 text-emerald-600 px-3 py-2 rounded-lg border border-emerald-200 transition-colors flex items-center gap-1.5 shadow-sm hover:shadow ${isGeneratingImage ? 'opacity-50 cursor-not-allowed' : 'hover:bg-emerald-100'}`}
-                    title="Gerar imagem via Gemini baseada no Título"
+                    title="Gerar imagem via Gemini (Nano Banana) baseada no Título"
                 >
                     {isGeneratingImage ? (
                         <svg className="animate-spin h-4 w-4 text-emerald-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     ) : (
                         <>
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg>
                             <span className="text-xs font-bold">IA</span>
                         </>
                     )}

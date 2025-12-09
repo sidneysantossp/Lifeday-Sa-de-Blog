@@ -280,29 +280,32 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ articleId, onNavigate, onNavi
             {/* Semantic Content Area */}
             <div 
               className="prose prose-stone prose-base md:prose-lg lg:prose-xl max-w-none 
-              prose-headings:font-serif prose-headings:text-stone-900 
+              prose-headings:font-serif prose-headings:font-bold
+              prose-h1:text-4xl prose-h1:text-stone-900
+              prose-h2:text-3xl prose-h2:text-emerald-900 prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-2 prose-h2:border-b prose-h2:border-stone-100
+              prose-h3:text-2xl prose-h3:text-stone-800 prose-h3:mt-10 prose-h3:mb-4
               prose-p:text-stone-600 prose-p:leading-relaxed md:prose-p:leading-loose
               prose-a:text-emerald-700 prose-a:font-medium hover:prose-a:text-emerald-800
-              prose-blockquote:border-l-emerald-500 prose-blockquote:bg-white prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:italic
+              prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-stone-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:italic prose-blockquote:rounded-r-lg
               prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-8
-              prose-th:bg-stone-100 prose-th:p-4 prose-td:p-4 prose-table:border prose-table:border-stone-200 prose-table:rounded-lg prose-table:overflow-hidden"
+              prose-th:bg-emerald-50 prose-th:text-emerald-900 prose-th:p-4 prose-td:p-4 prose-table:border prose-table:border-stone-200 prose-table:rounded-lg prose-table:overflow-hidden"
               dangerouslySetInnerHTML={{ __html: article.content || '<p>Conteúdo em atualização.</p>' }} 
             />
 
             {/* FAQ Section for Voice Search Optimization (Schema mapped) */}
             {article.faq && article.faq.length > 0 && (
-                <div className="mt-12 pt-8 border-t border-stone-200">
-                    <h2 className="text-2xl font-serif font-bold text-stone-900 mb-6 flex items-center gap-2">
-                      <svg className="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="mt-16 pt-10 border-t border-stone-200">
+                    <h2 className="text-3xl font-serif font-bold text-emerald-900 mb-8 flex items-center gap-3">
+                      <svg className="w-8 h-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       Perguntas Frequentes (FAQ)
                     </h2>
                     <div className="space-y-6">
                         {article.faq.map((item, index) => (
-                            <div key={index} className="bg-stone-50 rounded-xl p-6 border border-stone-100">
-                                <h3 className="font-bold text-stone-900 mb-2">{item.question}</h3>
-                                <p className="text-stone-600 text-sm article-faq-answer">{item.answer}</p>
+                            <div key={index} className="bg-stone-50 rounded-xl p-6 border border-stone-100 hover:border-emerald-100 transition-colors">
+                                <h3 className="text-xl font-bold text-stone-900 mb-3">{item.question}</h3>
+                                <p className="text-stone-600 text-base leading-relaxed article-faq-answer">{item.answer}</p>
                             </div>
                         ))}
                     </div>

@@ -134,6 +134,12 @@ const App: React.FC = () => {
     navigateTo('admin-article-edit');
   };
 
+  // Logic to view article from admin
+  const handleViewArticle = (id: string) => {
+    setCurrentArticleId(id);
+    navigateTo('article-detail');
+  };
+
   // Logic to Save/Update Articles
   const handleSaveArticle = (articleData: ArticleData) => {
     setArticles(prevArticles => {
@@ -203,6 +209,7 @@ const App: React.FC = () => {
           <ArticlesManager 
             articles={articles} 
             onEdit={handleEditArticle} 
+            onView={handleViewArticle}
           />
         )}
         {currentPage === 'admin-article-edit' && (

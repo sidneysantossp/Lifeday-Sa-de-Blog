@@ -20,4 +20,5 @@ export interface ArticleData {
   faq?: { question: string; answer: string }[]; // Novo: Para Schema FAQPage
   seoTitle?: string;
   seoDescription?: string;
+  seoKeyword?: string; // Novo: Palavra-chave principal
 }
